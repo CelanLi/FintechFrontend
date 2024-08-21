@@ -43,11 +43,11 @@
       <!--分页-->
       <div class="page_box">
         <ul class="pagination">
-          <li  class="disabled"><a href="javascript:void(0)" @click="first()">首页</a>></li>
-          <li><a href="">上一页</a></li>
+          <li><a href="javascript:void(0)" @click="first()">首页</a>></li>
+          <li><a href="javascript:void(0)" @click="prev()">上一页</a></li>
           <li class="active"><span>{{page.pageNo}}</span></li>
-          <li><a href="">下一页</a></li>
-          <li><a href="">尾页</a></li>
+          <li><a href="javascript:void(0)" @click="next()">下一页</a></li>
+          <li><a href="javascript:void(0)" @click="last()">尾页</a></li>
           <li class="totalPages"><span>共{{page.toalPage}}页</span></li>
         </ul>
       </div>
@@ -107,16 +107,16 @@ export default {
   mounted() {
     // get param
     productType = this.$route.query.ptype;
-    console.log("productType: " + productType)
+    // get rank
+    doGet("/v1/invest/rank").then(res => {
+      if (res){
+        this.rank = res.data.list;
+      }
+    });
     this.initPage(productType, 1, 9);
   },
   methods: {
     initPage(productType, pNo, pSize){
-      doGet("/v1/invest/rank").then(res => {
-        if (res){
-          this.rank = res.data.list;
-        }
-      });
       doGet("/v1/product/list", {ptype:productType, pageNo:pNo, pageSize:pSize}).then(res => {
         if (res){
           this.productList = res.data.list;
@@ -128,12 +128,38 @@ export default {
       if (this.page.pageNo == 1){
         alert("已经是第一页了")
       }
-      this.initPage(productType, 1, 9);
+      else{
+        this.initPage(productType, 1, 9);
+      }
+    },
+    last(){
+      if (this.page.pageNo == this.page.toalPage){
+        alert("已经是最后一页了")
+      }
+      else {
+        this.initPage(productType, this.page.toalPage, 9);
+      }
+    },
+    next(){
+      if (this.page.pageNo == this.page.toalPage){
+        alert("已经是最后一页了")
+      }
+      else{
+        this.initPage(productType, this.page.pageNo + 1, 9);
+      }
+    },
+    prev(){
+      if (this.page.pageNo == 1){
+        alert("已经是第一页了")
+      }
+      else{
+        this.initPage(productType, this.page.pageNo - 1, 9);
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-
+@import "@/assets/css/list.css";
 </style>

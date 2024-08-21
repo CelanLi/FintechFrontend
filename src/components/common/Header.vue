@@ -12,8 +12,8 @@
             <a href="javascript:void(0);">我要投资</a>
             <!--二级导航-->
             <div class="two-title">
-              <a href="javascript:;">优先类产品</a>
-              <a href="javascript:;">三标类产品</a>
+              <a href="javascript:void(0)" @click="goLink('/page/product/list', {ptype:1})">优选类产品</a>
+              <a href="javascript:void(0)" @click="goLink('/page/product/list', {ptype:2})">散标类产品</a>
             </div>
           </li>
           <li><a href="user_center.html" target="_blank">借款人信息</a></li>

@@ -117,7 +117,6 @@
       <ul class="preferred-select clearfix">
         <li v-for="product in sanBiao" :key="product.id">
           <h3 class="preferred-select-title1">{{product.productName}}
-            <span>散标</span>
           </h3>
           <div class="preferred-select-number">
             <p><b>{{product.rate}}</b>%</p>
@@ -279,5 +278,5 @@ export default {
 </script>
 
 <style scoped>
-
+@import "@/assets/css/index.css";
 </style>
