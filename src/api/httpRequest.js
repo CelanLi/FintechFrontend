@@ -1,4 +1,5 @@
 import axios from "axios";
+import qs from "qs";
 
 axios.defaults.baseURL = "http://localhost:8000/api";
 axios.defaults.timeout = 50000;
@@ -31,6 +32,12 @@ function doPostJson(url, data) {
   });
 }
 
+function doPost(url, params) {
+  // qs can convert the json object to form data
+  let requestData = qs.stringify(params);
+  return axios.post(url, requestData)
+}
+
 
 // export the function
-export { doGet, doPostJson };
+export { doGet, doPostJson, doPost };

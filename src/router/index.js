@@ -25,6 +25,26 @@ const routes = [
     name: 'ProductDetail',
     component: () => import('../views/ProductDetailView.vue')
   },
+  {
+    path: '/page/user/register',
+    name: 'RegisterView',
+    component: () => import('../views/RegisterView.vue')
+  },
+  {
+    path: '/page/user/login',
+    name: 'LoginView',
+    component: () => import('../views/LoginView.vue')
+  },
+  {
+    path: '/page/user/realname',
+    name: 'RealNameView',
+    component: () => import('../views/RealNameView.vue')
+  },
+  {
+    path: '/page/user/usercenter',
+    name: 'UserCenterView',
+    component: () => import('../views/UserCenterView.vue')
+  },
 ]
 
 const router = createRouter({
