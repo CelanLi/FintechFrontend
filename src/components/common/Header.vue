@@ -16,12 +16,16 @@
               <a href="javascript:void(0)" @click="goLink('/page/product/list', {ptype:2})">散标类产品</a>
             </div>
           </li>
-          <li><a href="user_center.html" target="_blank">借款人信息</a></li>
-          <li><a href="javascript:;" target="_blank">信息披露</a></li>
-          <li><a href="javascript:;" target="_blank">安全计划</a></li>
+          <li><a href="javascript:void(0)">借款人信息</a></li>
+          <li><a href="javascript:void(0)">信息披露</a></li>
+          <li><a href="javascript:void(0)">安全计划</a></li>
         </ul>
       </div>
-      <div class="public-head-right">
+      <div class="public-head-right" v-if="isLogin">
+        <a href="javascript:void(0)" @click="goLink('/page/user/realname')">实名认证</a>
+        <a href="javascript:void(0)" @click="goLink('/page/user/usercenter')">用户中心</a>
+      </div>
+      <div class="public-head-right" v-else>
         <a href="javascript:void(0)" @click="goLink('/page/user/login')">登录</a>
         <a href="javascript:void(0)" @click="goLink('/page/user/register')">注册</a>
       </div>
@@ -34,9 +38,21 @@
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "Header",
+  data() {
+    return {
+      isLogin: false
+    }
+  },
+  mounted() {
+    // check if login
+    if (localStorage.getItem('token')) {
+      this.isLogin = true
+    }
+  },
   // page jump
   methods: {
     goLink(url, params){
+      console.log('goLink', url, params);
       // use router to jump
       this.$router.push({
         path: url,

@@ -152,36 +152,41 @@ export default {
         );
       }
     },
-    async requestUserLogin(){
-      await this.checkPhone();
-      await this.checkPassword();
-      await this.checkCode();
+    async requestUserLogin(event){
+      // prevent the form from submitting
+      event.preventDefault();
+      this.checkPhone();
+      this.checkPassword();
+      this.checkCode();
       if (this.phoneErr == '' && this.passwordErr == '' && this.codeErr == ''){
         // data is correct, send register request
         // use md5 to encrypt the password in frontend
         let newPassword = md5(this.password);
         doPost("/v1/user/login", {phone: this.phone, pword: newPassword, scode: this.code}).then(response => {
+          console.log("login succeed",response)
           if (response && response.data.code === 1000){
+            console.log(response.data.data)
             // store the jwt
-            window.localStorage.setItem('token', response.data.data.accessToken);
+            window.localStorage.setItem('token', response.data.accessToken);
             // store user information
             window.localStorage.setItem('user', JSON.stringify(response.data.data));
             // login successfully
             if (response.data.data.name == ''){
+              console.log("name is empty")
               // go to user validation page
-              this.$router.push({
-                path:'/page/user/realname'
-              })
+              this.$router.push('/page/user/realname');
             }
             else{
-              this.$router.push({
-                path:'/page/user/usercenter'
-              });
+              // go to user center page
+              this.$router.push('/page/user/usercenter');
             }
           }
           else{
-            this.codeErr = response.data.msg;
+            // login failed
+            console.log("login failed1",response)
           }
+        }).catch((error) => {
+          console.log("login failed2",error)
         });
 
       }

@@ -116,7 +116,8 @@
       <h2 class="public-title"><span>散标产品</span> <a href="javascript:void(0)" @click="goLink('/page/product/list', {ptype:2})" class="public-title-more">查看更多产品>></a></h2>
       <ul class="preferred-select clearfix">
         <li v-for="product in sanBiao" :key="product.id">
-          <h3 class="preferred-select-title1">{{product.productName}}
+          <h3 class="preferred-select-title1">
+            {{product.productName}}
           </h3>
           <div class="preferred-select-number">
             <p><b>{{product.rate}}</b>%</p>
@@ -133,7 +134,7 @@
             </div>
           </div>
           <p class="preferred-select-txt">
-            优选计划项目，投资回报周期1个月，起点低，适合短期资金周转、对流动性要求高的投资人。
+            散标计划项目，投资回报周期1个月，起点低，适合短期资金周转、对流动性要求高的投资人。
           </p>
           <a href="javascript:void(0)" @click="goLink('/page/product/detail', {productId: product.id})" class="preferred-select-btn">立即投资</a>
         </li>

@@ -338,6 +338,7 @@ body {
     box-sizing: border-box;
     width: 1200px;
 }
+
 .preferred-select li{
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;

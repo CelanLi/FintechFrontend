@@ -36,14 +36,14 @@
           <p class="preferred-select-txt">
             优选计划项目，投资回报周期{{product.cycle}}个月，起点低，适合短期资金周转、对流动性要求高的投资人。
           </p>
-          <a href="javascript:;" target="_blank" class="preferred-select-btn">立即投资</a>
+          <a href="javascript:void(0)" @click="goLink('/page/product/detail', {productId: product.id})" class="preferred-select-btn">立即投资</a>
         </li>
       </ul>
 
       <!--分页-->
       <div class="page_box">
         <ul class="pagination">
-          <li><a href="javascript:void(0)" @click="first()">首页</a>></li>
+          <li><a href="javascript:void(0)" @click="first()">首页</a></li>
           <li><a href="javascript:void(0)" @click="prev()">上一页</a></li>
           <li class="active"><span>{{page.pageNo}}</span></li>
           <li><a href="javascript:void(0)" @click="next()">下一页</a></li>
@@ -123,6 +123,7 @@ export default {
           this.page = res.data.page;
         }
       });
+      window.scrollTo(0, 0);
     },
     first(){
       if (this.page.pageNo == 1){
@@ -154,6 +155,22 @@ export default {
       }
       else{
         this.initPage(productType, this.page.pageNo - 1, 9);
+      }
+    },
+    goLink(url, params){
+      // use router to jump
+      this.$router.push({
+        path: url,
+        query: params
+      })
+    }
+  },
+  watch: {
+    '$route.query.ptype': function(newPtype, oldPtype) {
+      console.log(`ptype changed from ${oldPtype} to ${newPtype}`);
+      if(newPtype !== oldPtype) {
+        this.productType = newPtype;
+        this.initPage(newPtype);
       }
     }
   }
