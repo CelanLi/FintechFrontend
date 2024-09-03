@@ -66,9 +66,12 @@
         <h3 class="detail-right-mode-title">收益方式</h3>
         <p class="detail-right-mode-p"><span>到期还本付息</span></p>
         <h3 class="detail-right-mode-title">我的账户可用</h3>
-        <div class="detail-right-mode-rmb">
+        <div class="detail-right-mode-rmb" v-if="isLogin==false">
           <p>资金（元）：******</p>
-          <a href="login.html" target="_blank">请登录</a>
+          <a href="javascript:void(0)"  @click="goLink('/page/user/login')" target="_blank">请登录</a>
+        </div>
+        <div class="detail-right-mode-rmb" v-else>
+          <p>资金（元）：{{this.accountMoney}}</p>
         </div>
         <h3 class="detail-right-mode-title">预计本息收入（元）</h3>
         <form action="" id="number_submit">
@@ -117,10 +120,18 @@ export default {
         phone: "",
         bidMoney: 0.00,
         bidTime: "",
-      }]
+      }],
+      isLogin: false,
+      accountMoney: 0.0
     };
   },
   mounted() {
+    // check if login
+    let token = localStorage.getItem("token");
+    if (token){
+      this.isLogin = true;
+    }
+
     let productId = this.$route.query.productId
     doGet("/v1/product/info", {productId: productId}).then((response) => {
       if (response){
@@ -128,6 +139,24 @@ export default {
         this.bidList = response.data.list;
       }
     });
+
+    // get available money
+    doGet("/v1/user/usercenter").then((resp)=>{
+      if (resp && resp.data.code === 1000){
+        console.log(resp.data.data)
+        this.accountMoney = resp.data.data.money
+      }
+    })
+  },
+  methods:{
+    goLink(url, params){
+      console.log('goLink', url, params);
+      // use router to jump
+      this.$router.push({
+        path: url,
+        query: params
+      })
+    },
   }
 }
 </script>

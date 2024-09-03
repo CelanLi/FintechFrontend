@@ -45,7 +45,7 @@ axios.interceptors.request.use(
     // when need jwt token, add token in the request header
     // check if token is needed
     console.log(config.url)
-    if (config.url == 'v1/user/realname' || config.url == 'v1/user/usercenter' || config.url == 'v1/recharge/records'){
+    if (config.url == '/v1/user/realname' || config.url == '/v1/user/usercenter' || config.url == '/v1/recharge/records'){
       let token = localStorage.getItem('token');
       let userInfo = localStorage.getItem('user');
       if (token && userInfo) {
