@@ -192,13 +192,13 @@ export default {
 
   },
   mounted() {
-    doGet('v1/user/usercenter').then((response) => {
+    doGet('/v1/user/usercenter').then((response) => {
       if (response && response.data.code === 1000) {
         console.log(response.data.data)
         this.userBaseInfo = response.data.data;
       }
     })
-    doGet('v1/recharge/records', {pageNo:1, pageSize:6}).then((response) => {
+    doGet('/v1/recharge/records', {pageNo:1, pageSize:6}).then((response) => {
       if (response && response.data.code === 1000) {
         console.log(response.data.list)
         this.rechargeList = response.data.list;

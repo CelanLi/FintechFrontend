@@ -124,7 +124,7 @@ export default {
         let btn = document.getElementById("yzmBtn");
         btn.style.color = 'gray';
         // send request to backend to get the login code
-        doGet("v1/sms/code/realname", { phone: this.phone }).then(
+        doGet("/v1/sms/code/realname", { phone: this.phone }).then(
             (response) => {
               console.log("aaaaa",response)
               if (response && response.data && response.data.code === 1000) {
@@ -168,7 +168,7 @@ export default {
           phone: this.phone,
           code: this.code
         }
-        doPostJson('v1/user/realname', param).then((response) => {
+        doPostJson('/v1/user/realname', param).then((response) => {
           if(response.data.code === 1000){
             // jump to user center
             this.$router.push('/page/user/usercenter');

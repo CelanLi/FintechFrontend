@@ -167,7 +167,7 @@ export default {
         let btn = document.getElementById("yzmBtn");
         btn.style.color = 'gray';
         // send request to backend to get the sms code
-        doGet("v1/sms/code/register", { phone: this.phone }).then(
+        doGet("/v1/sms/code/register", { phone: this.phone }).then(
           (response) => {
             if (response.data.code === 1000) {
               // set a timer

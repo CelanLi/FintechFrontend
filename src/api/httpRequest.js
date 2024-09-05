@@ -1,7 +1,7 @@
 import axios from "axios";
 import qs from "qs";
 
-axios.defaults.baseURL = "http://localhost:8000/api";
+axios.defaults.baseURL = "http://localhost:8000/api/";
 axios.defaults.timeout = 50000;
 
 /**
@@ -45,10 +45,10 @@ axios.interceptors.request.use(
     // when need jwt token, add token in the request header
     // check if token is needed
     console.log(config.url)
-    if (config.url == '/v1/user/realname' || config.url == '/v1/user/usercenter' || config.url == '/v1/recharge/records'){
-      let token = localStorage.getItem('token');
-      let userInfo = localStorage.getItem('user');
-      if (token && userInfo) {
+    let token = localStorage.getItem('token');
+    let userInfo = localStorage.getItem('user');
+    if (token && userInfo) {
+      if (config.url == '/v1/user/realname' || config.url == '/v1/user/usercenter' || config.url == '/v1/recharge/records' || config.url == '/v1/invest/product'){
         config.headers.Authorization = 'Bearer ' + token;
         config.headers['uid'] = JSON.parse(userInfo).uid;
       }
